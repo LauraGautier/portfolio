@@ -47,7 +47,7 @@
         <div class="flex items-center space-x-2 bg-white/10 backdrop-blur-sm rounded-full px-6 py-3 border border-white/20">
             <Phone :size="20" class="text-purple-500" />
             <a href="tel:+33622992575" class="hover:text-purple-300 transition-colors">
-            06.22.99.25.75
+            06.00.00.00.00
             </a>
         </div>
         <div class="flex items-center space-x-2 bg-white/10 backdrop-blur-sm rounded-full px-6 py-3 border border-white/20">
@@ -65,7 +65,7 @@
       
       <div class="border-t border-gray-700 pt-8 text-center">
         <p class="text-gray-400 mb-2">
-          © 2025 Laura Gautier - Développeuse Full Stack
+          © 2025 Laura Gautier
         </p>
         <p class="text-sm text-gray-500">
           Portfolio réalisé avec Vue.js, Vue Router, Pinia et amour du code ❤️

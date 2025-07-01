@@ -3,11 +3,8 @@
     <div class="container mx-auto px-6">
       <div class="text-center mb-16">
         <h2 class="text-5xl font-bold mb-6 bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
-          Intégrations API
+          Choses diverses et variées
         </h2>
-        <p class="text-xl text-gray-600 dark:text-gray-300">
-          Démonstration d'intégration avec des APIs externes
-        </p>
       </div>
 
       <div class="grid lg:grid-cols-2 gap-8">
@@ -17,7 +14,7 @@
             <div class="bg-gradient-to-r from-blue-500 to-cyan-500 p-4 rounded-2xl mr-4">
               <Globe :size="32" class="text-white" />
             </div>
-            <h3 class="text-2xl font-bold">Météo en Temps Réel</h3>
+            <h3 class="text-2xl font-bold">La météo par chez moi</h3>
           </div>
           
           <div v-if="weatherData" class="space-y-4">
@@ -81,7 +78,7 @@
             <div class="bg-gradient-to-r from-green-500 to-emerald-500 p-4 rounded-2xl mr-4">
               <MapPin :size="32" class="text-white" />
             </div>
-            <h3 class="text-2xl font-bold">API Géographique</h3>
+            <h3 class="text-2xl font-bold">Un peu de géographie</h3>
           </div>
           
           <div class="space-y-6">
