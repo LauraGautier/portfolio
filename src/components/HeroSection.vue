@@ -84,6 +84,5 @@ export default {
     Github,
     ExternalLink
   }
-  // Retiré tout le JavaScript du parallax
 }
 </script>

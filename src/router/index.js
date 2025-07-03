@@ -35,7 +35,7 @@ const routes = [
     name: 'Login',
     component: Login,
     meta: {
-      requiresGuest: true, // Seuls les utilisateurs non connectés peuvent accéder
+      requiresGuest: true,
       title: 'Connexion - Laura Gautier'
     }
   },
@@ -58,21 +58,16 @@ const router = createRouter({
   }
 })
 
-// Garde de navigation pour l'authentification et les métadonnées
 router.beforeEach((to, from, next) => {
   const store = useMainStore()
   
-  // Vérifier l'authentification au démarrage
   store.checkAuth()
   
-  // Mettre à jour le titre de la page
   if (to.meta.title) {
     document.title = to.meta.title
   }
   
-  // Si la route nécessite d'être invité (non connecté)
   if (to.meta.requiresGuest && store.isAuthenticated) {
-    // Rediriger vers les articles si déjà connecté
     next('/articles')
     return
   }
@@ -80,11 +75,9 @@ router.beforeEach((to, from, next) => {
   next()
 })
 
-// Garde après navigation pour les notifications
 router.afterEach((to, from) => {
   const store = useMainStore()
   
-  // Notification de bienvenue après connexion
   if (to.name === 'Articles' && from.name === 'Login' && store.isAuthenticated) {
     setTimeout(() => {
       if (window.showNotification) {
@@ -93,7 +86,6 @@ router.afterEach((to, from) => {
     }, 500)
   }
   
-  // Charger les articles depuis localStorage si on arrive sur la page articles
   if (to.name === 'Articles') {
     store.loadArticles()
   }

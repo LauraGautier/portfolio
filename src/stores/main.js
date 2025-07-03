@@ -3,12 +3,9 @@ import { defineStore } from 'pinia'
 export const useMainStore = defineStore('main', {
   state: () => ({
     darkMode: false,
-    
-    // Authentification
     user: null,
     isAuthenticated: false,
     
-    // Articles avec données de démonstration
     articles: [
       {
         id: 1,
@@ -39,7 +36,6 @@ export const useMainStore = defineStore('main', {
       }
     ],
     
-    // APIs externes
     weatherData: null,
     regions: [],
     departements: [],
@@ -50,15 +46,12 @@ export const useMainStore = defineStore('main', {
   actions: {
     toggleDarkMode() {
       this.darkMode = !this.darkMode
-      // Persister le choix
       localStorage.setItem('darkMode', JSON.stringify(this.darkMode))
     },
 
-    // Actions d'authentification
     login(userData) {
       this.user = userData
       this.isAuthenticated = true
-      // Sauvegarder en localStorage pour persister la session
       localStorage.setItem('user', JSON.stringify(userData))
       localStorage.setItem('isAuthenticated', 'true')
     },
@@ -66,12 +59,10 @@ export const useMainStore = defineStore('main', {
     logout() {
       this.user = null
       this.isAuthenticated = false
-      // Supprimer de localStorage
       localStorage.removeItem('user')
       localStorage.removeItem('isAuthenticated')
     },
 
-    // Vérifier si l'utilisateur est connecté au démarrage
     checkAuth() {
       const savedUser = localStorage.getItem('user')
       const savedAuth = localStorage.getItem('isAuthenticated')
@@ -87,7 +78,6 @@ export const useMainStore = defineStore('main', {
       }
     },
 
-    // Actions pour les articles (protégées)
     addArticle(article) {
       if (!this.isAuthenticated) {
         throw new Error('Vous devez être connecté pour ajouter un article')
@@ -104,7 +94,6 @@ export const useMainStore = defineStore('main', {
       }
       this.articles.unshift(newArticle)
       
-      // Sauvegarder les articles en localStorage
       this.saveArticles()
     },
 
@@ -123,7 +112,6 @@ export const useMainStore = defineStore('main', {
             : updatedArticle.tags
         }
         
-        // Sauvegarder les articles en localStorage
         this.saveArticles()
       }
     },
@@ -135,16 +123,13 @@ export const useMainStore = defineStore('main', {
 
       this.articles = this.articles.filter(article => article.id !== id)
       
-      // Sauvegarder les articles en localStorage
       this.saveArticles()
     },
 
-    // Sauvegarder les articles en localStorage
     saveArticles() {
       localStorage.setItem('articles', JSON.stringify(this.articles))
     },
 
-    // Charger les articles depuis localStorage
     loadArticles() {
       const savedArticles = localStorage.getItem('articles')
       if (savedArticles) {
@@ -152,7 +137,6 @@ export const useMainStore = defineStore('main', {
       }
     },
 
-    // Incrémenter les vues d'un article
     incrementViews(articleId) {
       const article = this.articles.find(a => a.id === articleId)
       if (article) {
@@ -161,7 +145,6 @@ export const useMainStore = defineStore('main', {
       }
     },
 
-    // APIs externes
     async fetchWeatherData() {
       try {
         const response = await fetch(
@@ -258,13 +241,11 @@ export const useMainStore = defineStore('main', {
       this.isLoading = status
     },
 
-    // Réinitialiser toutes les données (utile pour les tests)
     resetAllData() {
       localStorage.clear()
       this.user = null
       this.isAuthenticated = false
       this.darkMode = false
-      // Recharger les articles par défaut
       this.articles = [
         {
           id: 1,
@@ -295,23 +276,19 @@ export const useMainStore = defineStore('main', {
         : 'bg-gradient-to-br from-gray-50 via-blue-50 to-purple-50 text-gray-900'
     },
 
-    // Getter pour vérifier si l'utilisateur peut gérer les articles
     canManageArticles: (state) => {
       return state.isAuthenticated && state.user?.role === 'admin'
     },
 
-    // Getter pour obtenir les articles triés par date
     sortedArticles: (state) => {
       return [...state.articles].sort((a, b) => new Date(b.date) - new Date(a.date))
     },
 
-    // Getter pour obtenir les catégories uniques
     categories: (state) => {
       const cats = state.articles.map(article => article.category)
       return [...new Set(cats)]
     },
 
-    // Getter pour obtenir tous les tags uniques
     allTags: (state) => {
       const tags = state.articles.flatMap(article => article.tags || [])
       return [...new Set(tags)]
