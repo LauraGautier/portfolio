@@ -428,7 +428,6 @@ export default {
     }
 
     const exportToPDF = () => {
-      // Simulation d'export PDF
       if (window.showNotification) {
         window.showNotification('Export PDF en cours... 📄', 'info')
         setTimeout(() => {
